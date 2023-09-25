@@ -1,12 +1,12 @@
 package main
 
 import (
+	"asciiArtFs"
 	"bufio"
 	"fmt"
 	"log"
 	"os"
 	"strings"
-	"asciiArtFs"
 )
 
 const (
@@ -20,13 +20,12 @@ func main() {
 		return
 	}
 	args := os.Args[1:]
-	// bol := asciiArtFs.IsValid(args[0])
 	if !(asciiArtFs.IsValid(args[0])) {
 		fmt.Println("Not a valid character")
 		return
 	}
 
-	text := args[0]    // "hello" == [0]
+	text := args[0]
 	font := "standard" //base font
 	if len(args) == 2 {
 		switch args[1] {
