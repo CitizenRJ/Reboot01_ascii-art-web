@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+
+	"asciiartweb/internal/asciiart"
 )
 
 func formHandler(w http.ResponseWriter, r *http.Request) {
@@ -16,7 +18,7 @@ func formHandler(w http.ResponseWriter, r *http.Request) {
 	address := r.FormValue("address") // value of output?
 	fmt.Fprintf(w, "name = %s\n", name)
 	fmt.Fprintf(w, "address = %s\n", address)
-
+	asciiart.AsciiArt()
 }
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
@@ -32,7 +34,6 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-
 	fileserver := http.FileServer(http.Dir("./static"))
 	http.Handle("/", fileserver)
 	http.HandleFunc("/form", formHandler)

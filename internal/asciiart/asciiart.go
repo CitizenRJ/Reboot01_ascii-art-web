@@ -1,12 +1,13 @@
-package main
+package asciiart
 
 import (
-	"asciiArtFs"
 	"bufio"
 	"fmt"
 	"log"
 	"os"
 	"strings"
+
+	"asciiartweb/internal/asciiartfs"
 )
 
 const (
@@ -14,19 +15,20 @@ const (
 )
 
 // check amount of arguments
-func main() {
+func AsciiArt() {
 	if len(os.Args) < 2 || len(os.Args) > 3 {
 		fmt.Println("Not a valid amount of arguments")
 		return
 	}
+
 	args := os.Args[1:]
-	if !(asciiArtFs.IsValid(args[0])) {
+	if !(asciiartfs.IsValid(args[0])) {
 		fmt.Println("Not a valid character")
 		return
 	}
 
 	text := args[0]
-	font := "standard" //base font
+	font := "standard" // base font
 	if len(args) == 2 {
 		switch args[1] {
 		case "shadow":
@@ -44,11 +46,11 @@ func main() {
 	// Read the content of the file
 	argsArr := strings.Split(strings.ReplaceAll(text, "\\n", "\n"), "\n")
 	arr := []string{}
-	readFile, err := os.Open("fonts/" + font + ".txt")
-	defer readFile.Close()
-
+	readFile, err := os.Open("../../internal/asciiart/fonts/" + font + ".txt")
 	if err != nil {
 		log.Fatalf("failed to open file: %s", err)
+		defer readFile.Close()
+
 	}
 
 	fileScanner := bufio.NewScanner(readFile)
@@ -68,5 +70,5 @@ func main() {
 			argsArr = argsArr[:larg-1]
 		}
 	}
-	asciiArtFs.PrintBanners(argsArr, arr)
+	asciiartfs.PrintBanners(argsArr, arr)
 }

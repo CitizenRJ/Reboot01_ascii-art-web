@@ -1,4 +1,4 @@
-package asciiArtFs
+package asciiartfs
 
 import "fmt"
 
@@ -9,8 +9,8 @@ func PrintBanners(banners, arr []string) {
 		num = num + 1
 		if ch == "" {
 			if num < len(banners) {
-			fmt.Println()
-			continue
+				fmt.Println()
+				continue
 			} else {
 				continue
 			}
@@ -21,7 +21,7 @@ func PrintBanners(banners, arr []string) {
 				fmt.Print(arr[int(n)+i])
 
 			}
-				fmt.Println()
+			fmt.Println()
 
 		}
 		fmt.Println()
