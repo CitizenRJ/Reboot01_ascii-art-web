@@ -2,6 +2,10 @@ body {
     background: linear-gradient(90deg, rgba(250,128,112,1) 0%, rgba(248,180,160,1) 25%, rgba(246,218,195,1) 50%, rgba(245,245,220,1) 75%);
 }
 
+.font {
+    text-align: center;
+}
+
 .cent {
     text-align: center;
 }
@@ -16,6 +20,7 @@ body {
 
 #x {
     width: 600px;
+    font-size: 200%;
 }
 
 .opcen {
