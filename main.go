@@ -1,37 +1,37 @@
 package main
 
-import(
+import (
 	"fmt"
 	"log"
 	"net/http"
 )
 
-func formHandler(w http.ResponseWriter, r *http.Request){
+func formHandler(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
-		fmt.FPrintf(w, "ParseForm() err: %v", err)
+		fmt.Fprintf(w, "ParseForm() err: %v", err)
 		return
 	}
-	fmt.FPrintf(w, "POST request successful!")
-	name := r.FormValue("name") // value to be changed to what input side name identifier has
-	address := r.ForwardValue("address") // value 
-
+	fmt.Fprintf(w, "POST request successful!")
+	name := r.FormValue("name")       // value to be changed to what input side name identifier has
+	address := r.FormValue("address") // value of output?
+	fmt.Fprintf(w, "name = %s\n", name)
+	fmt.Fprintf(w, "address = %s\n", address)
 
 }
 
-
-func helloHandler(w http.ResponseWriter, r *http.Request){
-if r.URL.Path != "/hello"{
-http.Error(w, "404 not found", http.StatusNotFound)
-return
-}
-if r.Method != "GET"{
-	http.Error(w, "method is not supported", http.StatusNotFound)
-	return
+func helloHandler(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/hello" {
+		http.Error(w, "404 not found", http.StatusNotFound)
+		return
 	}
-	fmt.FPrintf(w, "hello!")
+	if r.Method != "GET" {
+		http.Error(w, "method is not supported", http.StatusNotFound)
+		return
+	}
+	fmt.Fprintf(w, "hello!")
 }
 
-func main(){
+func main() {
 
 	fileserver := http.FileServer(http.Dir("./static"))
 	http.Handle("/", fileserver)
