@@ -3,7 +3,8 @@ package asciiartfs
 import "fmt"
 
 // Print the full outcome
-func PrintBanners(banners, arr []string) {
+func PrintBanners(banners, arr []string) string {
+	art := ""
 	num := 0
 	for _, ch := range banners {
 		num = num + 1
@@ -18,13 +19,14 @@ func PrintBanners(banners, arr []string) {
 		for i := 0; i < 8; i++ {
 			for _, j := range ch {
 				n := (j-32)*9 + 1
-				fmt.Print(arr[int(n)+i])
+				art += arr[int(n)+i]
 
 			}
-			fmt.Println()
+			art += "\n"
 
 		}
-		fmt.Println()
+		art += "\n"
 
 	}
+	return (art)
 }

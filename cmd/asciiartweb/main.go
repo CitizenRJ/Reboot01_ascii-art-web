@@ -13,7 +13,7 @@ func formHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "ParseForm() err: %v", err)
 		return
 	}
-	name := r.FormValue("name")       // value to be changed to what input side name identifier has
+	name := r.FormValue("name") // value to be changed to what input side name identifier has
 	// address := r.FormValue("address") // value of output?
 	fmt.Fprintf(w, "name = %s\n", name)
 	// fmt.Fprintf(w, "address = %s\n", address)

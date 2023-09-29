@@ -15,7 +15,7 @@ const (
 )
 
 // check amount of arguments
-func AsciiArt() {//name string, font string
+func AsciiArt() { // name string, font string
 	if len(os.Args) < 2 || len(os.Args) > 3 {
 		fmt.Println("Not a valid amount of arguments")
 		return
