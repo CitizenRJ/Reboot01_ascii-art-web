@@ -15,38 +15,38 @@ const (
 )
 
 // check amount of arguments
-func AsciiArt() { // name string, font string
-	if len(os.Args) < 2 || len(os.Args) > 3 {
-		fmt.Println("Not a valid amount of arguments")
-		return
-	}
+func AsciiArt(banner string, fontstr string) string { // name string, font string
+	// if len(os.Args) < 2 || len(os.Args) > 3 {
+	// 	fmt.Println("Not a valid amount of arguments")
+	// 	return ""
+	// }
 
-	args := os.Args[1:]
-	if !(asciiartfs.IsValid(args[0])) {
-		fmt.Println("Not a valid character")
-		return
-	}
+	// args := os.Args[1:]
+	// if !(asciiartfs.IsValid(args[0])) {
+	// 	fmt.Println("Not a valid character")
+	// 	return ""
+	// }
 
-	text := args[0]
-	font := "standard" // base font
-	if len(args) == 2 {
-		switch args[1] {
-		case "shadow":
-			font = "shadow"
-		case "thinkertoy":
-			font = "thinkertoy"
-		case "standard":
-			font = "standard"
-		default:
-			fmt.Println("Not a valid font")
-			return
-		}
-	}
+	// text := args[0]
+	// font := "standard" // base font
+	// if len(args) == 2 {
+	// 	switch args[1] {
+	// 	case "shadow":
+	// 		font = "shadow"
+	// 	case "thinkertoy":
+	// 		font = "thinkertoy"
+	// 	case "standard":
+	// 		font = "standard"
+	// 	default:
+	// 		fmt.Println("Not a valid font")
+	// 		return ""
+	// 	}
+	// }
 
 	// Read the content of the file
-	argsArr := strings.Split(strings.ReplaceAll(text, "\\n", "\n"), "\n")
+	argsArr := strings.Split(strings.ReplaceAll(fontstr, "\\n", "\n"), "\n")
 	arr := []string{}
-	readFile, err := os.Open("../../internal/asciiart/fonts/" + font + ".txt")
+	readFile, err := os.Open("../../internal/asciiart/fonts/" + banner + ".txt")
 	if err != nil {
 		log.Fatalf("failed to open file: %s", err)
 		defer readFile.Close()
@@ -62,7 +62,7 @@ func AsciiArt() { // name string, font string
 
 	if len(arr) != fileLen {
 		fmt.Println("File is corrupted")
-		return
+		return ""
 	}
 	larg := len(argsArr)
 	if larg >= 2 {
@@ -70,5 +70,5 @@ func AsciiArt() { // name string, font string
 			argsArr = argsArr[:larg-1]
 		}
 	}
-	asciiartfs.PrintBanners(argsArr, arr)
+	return asciiartfs.PrintBanners(argsArr, arr)
 }
