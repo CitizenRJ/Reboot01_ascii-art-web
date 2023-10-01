@@ -18,16 +18,18 @@ func formHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "ParseForm() err: %v", err)
 		return
 	}
-	name := r.FormValue("name") // value to be changed to what input side name identifier has
+	name := r.FormValue("name")
+	banner := r.FormValue("banner")
+	fmt.Println(banner) // value to be changed to what input side name identifier has
 	// address := r.FormValue("address") // value of output?
 	// if r.URL.Path != "/hello" {
-	http.FileServer(http.Dir("../../static/404.html"))
-	http.Error(w, "404 not found dumbass", http.StatusNotFound)
-	fmt.Fprintf(w, "name = %s\n", name)
+	// http.FileServer(http.Dir("../../static/404.html"))
+	// http.Error(w, "404 not found dumbass", http.StatusNotFound)
+	// fmt.Fprintf(w, "name = %s\n", name)
 	// fmt.Fprintf(w, "address = %s\n", address)
 	// fmt.Println(name)
 	// fmt.Printf( "address = %s\n", address)
-	art := asciiart.AsciiArt("standard", name)
+	art := asciiart.AsciiArt(banner, name)
 	fonts := Fonts{Art: art}
 	parsedTemplate, err := template.ParseFiles("../../static/index.html")
 	if err != nil {
