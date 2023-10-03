@@ -20,7 +20,8 @@ func formHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	name := r.FormValue("name")
 	banner := r.FormValue("banner")
-	fmt.Println(banner) // value to be changed to what input side name identifier has
+	fmt.Println("banner= " + banner)
+	// value to be changed to what input side name identifier has
 	// address := r.FormValue("address") // value of output?
 	// if r.URL.Path != "/hello" {
 	// http.FileServer(http.Dir("../../static/404.html"))
