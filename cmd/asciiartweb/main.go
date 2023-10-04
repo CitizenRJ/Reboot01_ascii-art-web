@@ -10,7 +10,8 @@ import (
 )
 
 type Fonts struct {
-	Art string
+	Art    string
+	Hidden string
 }
 
 func formHandler(w http.ResponseWriter, r *http.Request) {
@@ -21,17 +22,8 @@ func formHandler(w http.ResponseWriter, r *http.Request) {
 	name := r.FormValue("name")
 	banner := r.FormValue("banner")
 	fmt.Println("banner= " + banner)
-	// value to be changed to what input side name identifier has
-	// address := r.FormValue("address") // value of output?
-	// if r.URL.Path != "/hello" {
-	// http.FileServer(http.Dir("../../static/404.html"))
-	// http.Error(w, "404 not found dumbass", http.StatusNotFound)
-	// fmt.Fprintf(w, "name = %s\n", name)
-	// fmt.Fprintf(w, "address = %s\n", address)
-	// fmt.Println(name)
-	// fmt.Printf( "address = %s\n", address)
 	art := asciiart.AsciiArt(banner, name)
-	fonts := Fonts{Art: art}
+	fonts := Fonts{Art: art, Hidden: "false"}
 	parsedTemplate, err := template.ParseFiles("../../static/index.html")
 	if err != nil {
 		log.Println("Error executing template :", err)
@@ -58,13 +50,27 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "hello!")
 }
 
+func printHandler(w http.ResponseWriter, r *http.Request) {
+
+	parsedTemplate, err := template.ParseFiles("../../static/index.html")
+	if err != nil {
+		log.Println("Error executing template :", err)
+		return
+	}
+
+	err = parsedTemplate.Execute(w, nil)
+	if err != nil {
+		log.Println("Error executing template :", err)
+		return
+	}
+}
+
 func main() {
-	fileserver := http.FileServer(http.Dir("../../static"))
-	http.Handle("/", fileserver)
-	http.HandleFunc("/form", formHandler)
+	http.HandleFunc("/", formHandler)
+	http.HandleFunc("/form", printHandler)
 	http.HandleFunc("/hello", helloHandler)
 
-	fmt.Printf("Starting server at port 8080\n")
+	fmt.Printf("Starting server at http://localhost:8080/\n")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal(err)
 	}

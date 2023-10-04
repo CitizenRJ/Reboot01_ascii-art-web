@@ -29,20 +29,30 @@
 
         </form>
 
-        <div class="box1">
-                {{if .Art}} 
-                <pre>{{ .Art }}</pre>
-                {{end}}
+        <div class="box1" >
+            {{if .Art}} 
+            <pre  >{{ .Art }}</pre>
+            {{else}}
+            <p>hello fucker </p>
+            {{end}}
         </div>
-
-        <!-- <div class="b1">
-            <textarea class="cen" id="banner" name="banner" rows="4" cols="50">
-                {{if .Art}} 
-                <pre>{{ .Art }}</pre>
-                {{end}}
+        <!-- {{if .Art}} 
+        <div class="b1">
+            <textarea style="width: 600px;" class="cen" id="banner" name="banner" rows="4" cols="50">
+                
+               {{ .Art }}
+                
             </textarea>
-        </div> -->
+            {{else}}
+            <textarea style="width: 600px;" class="cen" id="banner" name="banner" rows="4" cols="50">
+                
+               hello
+                 
+             </textarea>
 
+            {{end}}
+            
+        </div> -->
         
         <!-- <form>
             <label for="input">Input</label>
