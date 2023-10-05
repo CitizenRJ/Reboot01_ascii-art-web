@@ -66,9 +66,13 @@ func printHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", formHandler)
-	http.HandleFunc("/form", printHandler)
+
+	http.HandleFunc("/", printHandler)
+	http.HandleFunc("/form", formHandler)
 	http.HandleFunc("/hello", helloHandler)
+	http.HandleFunc("/w.css", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "../../static/w.css")
+	})
 
 	fmt.Printf("Starting server at http://localhost:8080/\n")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
