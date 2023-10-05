@@ -66,7 +66,6 @@ func printHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-
 	http.HandleFunc("/", printHandler)
 	http.HandleFunc("/form", formHandler)
 	http.HandleFunc("/hello", helloHandler)
