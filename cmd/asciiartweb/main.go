@@ -40,7 +40,7 @@ func formHandler(w http.ResponseWriter, r *http.Request) {
 func helloHandler(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/hello" {
 		http.FileServer(http.Dir("../../static/404.html"))
-		http.Error(w, "404 not found dumbass", http.StatusNotFound)
+		http.Error(w, "404 not found", http.StatusNotFound)
 		return
 	}
 	if r.Method != "GET" {
