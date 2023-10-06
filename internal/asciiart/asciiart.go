@@ -16,32 +16,6 @@ const (
 
 // check amount of arguments
 func AsciiArt(banner string, fontstr string) string { // name string, font string
-	// if len(os.Args) < 2 || len(os.Args) > 3 {
-	// 	fmt.Println("Not a valid amount of arguments")
-	// 	return ""
-	// }
-
-	// args := os.Args[1:]
-	// if !(asciiartfs.IsValid(args[0])) {
-	// 	fmt.Println("Not a valid character")
-	// 	return ""
-	// }
-
-	// text := args[0]
-	// font := "standard" // base font
-	// if len(args) == 2 {
-	// 	switch args[1] {
-	// 	case "shadow":
-	// 		font = "shadow"
-	// 	case "thinkertoy":
-	// 		font = "thinkertoy"
-	// 	case "standard":
-	// 		font = "standard"
-	// 	default:
-	// 		fmt.Println("Not a valid font")
-	// 		return ""
-	// 	}
-	// }
 
 	// Read the content of the file
 	argsArr := strings.Split(strings.ReplaceAll(fontstr, "\\n", "\n"), "\n")

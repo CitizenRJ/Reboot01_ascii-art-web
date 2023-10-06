@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <title>  </title>
-        <link rel="stylesheet" href="/w.css">
-    </head>
+<head>
+    <title> </title>
+    <link rel="stylesheet" href="/w.css">
+</head>
 
-    <body>
-        <h1 class="font" style="font-family: Brush Script MT;"> ASCII Picaso </h1>
+<body>
+    <h1 class="font" style="font-family: Brush Script MT;"> ASCII Picaso </h1>
 
-        <form action="/form" method="POST">
+    <form action="/form" method="POST">
         <div class="cent">
             <textarea class="cen" id="name" name="name" rows="4" cols="50"></textarea>
         </div>
 
         <div class="menuc">
-        <label style="font-size: 150%;" for="my-dropdown">Select an option:</label>
+            <label style="font-size: 150%;" for="my-dropdown">Select an option:</label>
             <select style="width: 30%;" name="banner">
                 <option value="shadow">Shadow</option>
                 <option value="standard">Standard</option>
@@ -27,49 +27,15 @@
             <input type="submit" value="Click for Magic!">
         </div>
 
-        </form>
+    </form>
 
-        <div style="padding-top: 30px;">
-        <div class="box1" >
-            {{if .Art}} 
+    <div style="padding-top: 30px;">
+        <div class="box1">
+            {{if .Art}}
             <pre>{{ .Art }}</pre>
             {{end}}
         </div>
-        </div>
-        <!-- {{if .Art}} 
-        <div class="b1">
-            <textarea style="width: 600px;" class="cen" id="banner" name="banner" rows="4" cols="50">
-                
-               {{ .Art }}
-                
-            </textarea>
-            {{else}}
-            <textarea style="width: 600px;" class="cen" id="banner" name="banner" rows="4" cols="50">
-                
-               hello
-                 
-             </textarea>
+    </div>
+</body>
 
-            {{end}}
-            
-        </div> -->
-        
-        <!-- <form>
-            <label for="input">Input</label>
-            <input type="text" id="input" name="input">
-
-            <div class="menuc">
-                <label style="font-size: 150%;" for="my-dropdown">Select an option:</label>
-                    <select style="width: 30%;" id="my-dropdown">
-                        <option value="option1">Shadow</option>
-                        <option value="option2">Standard</option>
-                        <option value="option3">Thinkertoy</option>
-                    </select>
-            </div>
-
-            <label for="output">output</label>
-            <output id="output" name="output"></output>
-        </form> -->
-
-    </body>
 </html>
