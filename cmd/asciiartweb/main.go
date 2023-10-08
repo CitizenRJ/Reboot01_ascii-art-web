@@ -73,8 +73,8 @@ func main() {
 		http.ServeFile(w, r, "../../static/w.css")
 	})
 
-	fmt.Printf("Starting server at http://localhost:8080/\n")
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	fmt.Printf("Starting server at http://localhost:42069/\n")
+	if err := http.ListenAndServe(":42069", nil); err != nil {
 		log.Fatal(err)
 	}
 }

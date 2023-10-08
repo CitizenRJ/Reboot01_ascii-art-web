@@ -15,10 +15,16 @@ const (
 )
 
 // check amount of arguments
-func AsciiArt(banner string, fontstr string) string { // name string, font string
+func AsciiArt(banner string, fontStr string) string { // name string, font string
+
+	// Validate the input string
+	err := asciiartfs.IsValid(fontStr)
+	if err != nil {
+		log.Fatalf("Invalid input: %s", err)
+	}
 
 	// Read the content of the file
-	argsArr := strings.Split(strings.ReplaceAll(fontstr, "\\n", "\n"), "\n")
+	argsArr := strings.Split(strings.ReplaceAll(fontStr, "\\n", "\n"), "\n")
 	arr := []string{}
 	readFile, err := os.Open("../../internal/asciiart/fonts/" + banner + ".txt")
 	if err != nil {
