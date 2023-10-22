@@ -30,24 +30,31 @@ func formHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = parsedTemplate.Execute(w, fonts)
-	if err != nil {
-		log.Println("Error executing template :", err)
-		return
-	}
+	// err = parsedTemplate.Execute(w, fonts)
+	// if err != nil {
+	// 	log.Println("Error executing template :", err)
+	// 	return
+	// }
+
+	// if name == "" || name >= string(32) || name <= string(128) {
+	// 	http.ServeFile(w, r, "../../static/400.html")
+	// 	return
+	// }
+}
+
+func hiHandler(w http.ResponseWriter, r *http.Request) {
+	parsedTemplate, _ := template.ParseFiles("../../static/400.html")
+	parsedTemplate.Execute(w, nil)
 }
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/hello" {
-		http.FileServer(http.Dir("../../static/404.html"))
-		http.Error(w, "404 not found", http.StatusNotFound)
-		return
-	}
-	if r.Method != "GET" {
-		http.Error(w, "method is not supported", http.StatusNotFound)
-		return
-	}
-	fmt.Fprintf(w, "hello!")
+	parsedTemplate, _ := template.ParseFiles("../../static/404.html")
+	parsedTemplate.Execute(w, nil)
+}
+
+func errorHandler(w http.ResponseWriter, r *http.Request) {
+	parsedTemplate, _ := template.ParseFiles("../../static/500.html")
+	parsedTemplate.Execute(w, nil)
 }
 
 func printHandler(w http.ResponseWriter, r *http.Request) {
@@ -67,8 +74,10 @@ func printHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", printHandler)
-	http.HandleFunc("/form", formHandler)
-	http.HandleFunc("/hello", helloHandler)
+	http.HandleFunc("/ascii-art", formHandler)
+	http.HandleFunc("/400", hiHandler) // 400 bad request
+	http.HandleFunc("/404", helloHandler)
+	http.HandleFunc("/500", errorHandler)
 	http.HandleFunc("/w.css", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "../../static/w.css")
 	})

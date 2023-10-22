@@ -9,7 +9,7 @@
 <body>
     <h1 class="font" style="font-family: Brush Script MT;"> ASCII Picaso </h1>
 
-    <form action="/form" method="POST">
+    <form action="/ascii-art" method="POST">
         <div class="cent">
             <textarea class="cen" id="name" name="name" rows="4" cols="50"></textarea>
         </div>
@@ -29,13 +29,9 @@
 
     </form>
 
-    <div style="padding-top: 30px;">
-        <div class="box1">
-            {{if .Art}}
-            <pre>{{ .Art }}</pre>
-            {{end}}
-        </div>
-    </div>
+    {{if .Art}}
+    <pre>{{ .Art }}</pre>
+    {{end}}
 </body>
 
 </html>
