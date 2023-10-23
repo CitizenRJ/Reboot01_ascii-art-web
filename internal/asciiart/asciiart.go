@@ -20,15 +20,15 @@ func AsciiArt(banner string, fontStr string) string { // name string, font strin
 	// Validate the input string
 	err := asciiartfs.IsValid(fontStr)
 	if err != nil {
-		log.Fatalf("Invalid input: %s", err)
+		log.Printf("Invalid input: %s", err)
 	}
 
 	// Read the content of the file
-	argsArr := strings.Split(strings.ReplaceAll(fontStr, "\\n", "\n"), "\n")
+	argsArr := strings.Split(strings.ReplaceAll(fontStr, "\r", "\n"), "\n")
 	arr := []string{}
 	readFile, err := os.Open("../../internal/asciiart/fonts/" + banner + ".txt")
 	if err != nil {
-		log.Fatalf("failed to open file: %s", err)
+		log.Printf("failed to open file: %s", err)
 		defer readFile.Close()
 
 	}
