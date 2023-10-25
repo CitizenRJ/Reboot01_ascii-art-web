@@ -2,12 +2,19 @@ package main
 
 import (
 	"fmt"
-	"html/template"
+	//"html/template"
 	"log"
 	"net/http"
+	"text/template"
 
 	"asciiartweb/internal/asciiart"
 )
+
+var temp1 *template.Template
+
+func init() {
+	temp1 = template.Must(template.ParseFiles("../../static/404.html"))
+}
 
 type Fonts struct {
 	Art    string
@@ -30,6 +37,11 @@ func formHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	err = parsedTemplate.Execute(w, fonts)
+	if err != nil {
+		log.Println("Error executing template :", err)
+		return
+	}
 	// err = parsedTemplate.Execute(w, fonts)
 	// if err != nil {
 	// 	log.Println("Error executing template :", err)
@@ -40,14 +52,19 @@ func formHandler(w http.ResponseWriter, r *http.Request) {
 	// 	http.ServeFile(w, r, "../../static/400.html")
 	// 	return
 	// }
+	if r.URL.Path != "/" && r.URL.Path != "/ascii-art" {
+		helloHandler(w, r)
+	}
 }
 
 func hiHandler(w http.ResponseWriter, r *http.Request) {
 	parsedTemplate, _ := template.ParseFiles("../../static/400.html")
-	parsedTemplate.Execute(w, nil)
+	parsedTemplate.Execute(w, r)
 }
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
+	temp1.ExecuteTemplate(w, "404.html", r)
+	w.WriteHeader(404)
 	parsedTemplate, _ := template.ParseFiles("../../static/404.html")
 	parsedTemplate.Execute(w, nil)
 }
@@ -70,6 +87,11 @@ func printHandler(w http.ResponseWriter, r *http.Request) {
 		log.Println("Error executing template :", err)
 		return
 	}
+
+	// if r.URL.Path != "/" {
+	// 	return
+	// }
+
 }
 
 func main() {
@@ -82,8 +104,8 @@ func main() {
 		http.ServeFile(w, r, "../../static/w.css")
 	})
 
-	fmt.Printf("Starting server at http://localhost:42069/\n")
-	if err := http.ListenAndServe(":42069", nil); err != nil {
+	fmt.Printf("Starting server at http://localhost:8080/\n")
+	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal(err)
 	}
 }
