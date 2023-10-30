@@ -15,6 +15,8 @@ type Fonts struct {
 	Hidden string
 }
 
+const port = ":8080"
+
 func printHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
 		w.WriteHeader(http.StatusMethodNotAllowed)
@@ -30,12 +32,6 @@ func printHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// if  {
-	// http.Error(w, " ", http.StatusMethodNotAllowed)
-	// parsedTemplate, _ := template.ParseFiles("../../static/405.html")
-	// parsedTemplate.Execute(w, nil)
-	// return
-	// }
 	parsedTemplate, err := template.ParseFiles("../../static/index.html")
 	if err != nil {
 		log.Println("Error executing template :", err)
@@ -50,14 +46,11 @@ func printHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func formHandler(w http.ResponseWriter, r *http.Request) {
-	if err := r.ParseForm(); err != nil {
+	err := r.ParseForm()
+	if err != nil {
 		fmt.Fprintf(w, "ParseForm() err: %v", err)
 		return
 	}
-	// if r.URL.Path != "/ascii-art" {
-	// 	w.WriteHeader(http.StatusNotFound)
-	// 	parsedTemplate, _ := template.ParseFiles("../../static/404.html")
-	// 	parsedTemplate.Execute(w, nil)
 	if r.Method != "POST" {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		parsedTemplate, _ := template.ParseFiles("../../static/405.html")
@@ -80,15 +73,22 @@ func formHandler(w http.ResponseWriter, r *http.Request) {
 			}
 			return
 		}
+
 		banner := r.FormValue("banner")
-		// errbann := asciiart.AsciiArt(banner, name)
-		if banner != "Shadow" && banner != "standard" && banner != "thinkertoy" {
-			w.WriteHeader(http.StatusBadRequest)
+		if banner != "shadow" && banner != "standard" && banner != "thinkertoy" {
+			w.WriteHeader(http.StatusNotFound)
 			parsedTemplate, _ := template.ParseFiles("../../static/404.html")
 			parsedTemplate.Execute(w, nil)
 			return
 		}
-		art := asciiart.AsciiArt(banner, name)
+		fmt.Println(banner)
+		art, err := asciiart.AsciiArt(banner, name)
+		if err != nil {
+			w.WriteHeader(http.StatusNotFound)
+			parsedTemplate, _ := template.ParseFiles("../../static/404.html")
+			parsedTemplate.Execute(w, nil)
+			return
+		}
 		fonts := Fonts{Art: art, Hidden: "false"}
 		parsedTemplate, err := template.ParseFiles("../../static/index.html")
 		if err != nil {
@@ -102,7 +102,6 @@ func formHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-
 }
 
 func main() {
@@ -112,7 +111,7 @@ func main() {
 		http.ServeFile(w, r, "../../static/w.css")
 	})
 
-	fmt.Printf("Starting server at http://localhost:8080/\n")
+	fmt.Printf("Starting server at http://localhost" + port + "/\n")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal(err)
 	}

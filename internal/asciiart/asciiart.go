@@ -2,8 +2,7 @@ package asciiart
 
 import (
 	"bufio"
-	"fmt"
-	"log"
+	"errors"
 	"os"
 	"strings"
 
@@ -15,22 +14,15 @@ const (
 )
 
 // check amount of arguments
-func AsciiArt(banner string, fontStr string) string { // name string, font string
-
-	// Validate the input string
-	err := asciiartfs.IsValid(fontStr)
-	if err != nil {
-		log.Printf("Invalid input: %s", err)
-	}
+func AsciiArt(banner string, fontStr string) (string, error) { // name string, font string
 
 	// Read the content of the file
 	argsArr := strings.Split(strings.ReplaceAll(fontStr, "\r", "\n"), "\n")
 	arr := []string{}
 	readFile, err := os.Open("../../internal/asciiart/fonts/" + banner + ".txt")
 	if err != nil {
-		log.Printf("failed to open file: %s", err)
 		defer readFile.Close()
-
+		return "", errors.New("failed to open file")
 	}
 
 	fileScanner := bufio.NewScanner(readFile)
@@ -41,8 +33,8 @@ func AsciiArt(banner string, fontStr string) string { // name string, font strin
 	}
 
 	if len(arr) != fileLen {
-		fmt.Println("File is corrupted")
-		return ""
+		// return "bad code rami -- try again"
+		return "", errors.New("file is corrupted")
 	}
 	larg := len(argsArr)
 	if larg >= 2 {
@@ -50,5 +42,5 @@ func AsciiArt(banner string, fontStr string) string { // name string, font strin
 			argsArr = argsArr[:larg-1]
 		}
 	}
-	return asciiartfs.PrintBanners(argsArr, arr)
+	return asciiartfs.PrintBanners(argsArr, arr), nil
 }
